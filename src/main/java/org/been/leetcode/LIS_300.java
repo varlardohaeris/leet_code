@@ -1,5 +1,7 @@
 package org.been.leetcode;
 
+import java.util.Arrays;
+
 public class LIS_300 {
     public int lengthOfLIS(int[] nums) {
         int n = nums.length;
@@ -18,10 +20,28 @@ public class LIS_300 {
         return maxLen;
     }
 
+    public int lengthOfLIS2(int[] nums) {
+        int n = nums.length;
+        int[] dp = new int[n];
+        int len = 0;
+        for (int num : nums) {
+            int index = Arrays.binarySearch(dp, 0, len, num);
+            if (index < 0) {
+                index = -(index + 1);
+            }
+            dp[index] = num;
+            if (index == len) {
+                len++;
+            }
+        }
+        return len;
+    }
+
     public static void main(String[] args) {
         int[] input = {10, 9, 2, 5, 3, 7, 101, 18};
         int anwser = new LIS_300().lengthOfLIS(input);
         System.out.println(anwser);
-
+        anwser = new LIS_300().lengthOfLIS2(input);
+        System.out.println(anwser);
     }
 }
